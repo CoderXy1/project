@@ -5,7 +5,7 @@ public class SqlBean {
  
     //JDBC连接
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/test?useSSL=false";
+    static final String DB_URL = "jdbc:mysql://47.103.60.221:3306/hr?useSSL=false";
  
     //用户名和密码
     static final String USER = "root";

@@ -22,9 +22,9 @@ public class Dao {
 	}
 
 	// 检验登录信息
-	public boolean isRight(String adminName, String pass) {
+	public boolean isRight(String name, String pass) {
 		checkConnect();
-		String sql = "select * from admin where adminName = '" + adminName + "' and adminPass = '" + pass + "'";
+		String sql = "select * from tb_user where uid = '" + name + "' and password = '" + pass + "'";
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
