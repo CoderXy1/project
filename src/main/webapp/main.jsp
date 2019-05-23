@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
-<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="themes/icon.css">
 <!-- 引入easyu的js文件 -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -46,8 +46,8 @@
 
 		$(function() {
 			$('#tt').tree({
-				url : 'menu',
-				iconCls:"icon-ok",    
+				url : 'menu', 
+				animate:true,
 				onLoadSuccess : function(node, data) {
 					$('#tt').tree('collapseAll')
 				},

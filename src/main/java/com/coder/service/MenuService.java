@@ -56,7 +56,7 @@ public class MenuService {
 			for (int j = 0; j < smjson.size(); j++) {
 				JSONObject sm = smjson.getJSONObject(j);
 				sm.put("state", "open");
-				sm.put("iconCls","icon-blank");
+				sm.put("iconCls","icon-flower");
 				JSONObject attr = new JSONObject();
 				attr.put("path", sm.getString("path"));
 				sm.put("attributes", attr);

@@ -43,6 +43,12 @@
 .icon-undo{
 	background:url('icons/undo.png') no-repeat center center;
 }
+.icon-star{
+	background:url('icons/star.png') no-repeat center center;
+}
+.icon-flower{
+	background:url('icons/flower.png') no-repeat center center;
+}
 .icon-redo{
 	background:url('icons/redo.png') no-repeat center center;
 }
@@ -51,9 +57,6 @@
 }
 .icon-sum{
 	background:url('icons/sum.png') no-repeat center center;
-}
-.icon-star{
-	background:url('icons/star.png') no-repeat center center;
 }
 .icon-tip{
 	background:url('icons/tip.png') no-repeat center center;
