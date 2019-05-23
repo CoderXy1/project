@@ -13,13 +13,22 @@ public class MenuService {
 	private int id = 0;
 	private String firstMenu[] = {"用户管理","部门管理","职位管理","员工管理","公告管理","下载中心"};
 	private String secondMenu[][] = {
-		{"用户查询","添加用户"},
-		{"部门查询","添加部门"},
-		{"职位查询","添加职位"},
-		{"员工查询","添加员工"},
-		{"公告查询","添加公告"},
+		{"用户查询","添加用户","删除用户"},
+		{"部门查询","添加部门","删除部门"},
+		{"职位查询","添加职位","删除职位"},
+		{"员工查询","添加员工","删除员工"},
+		{"公告查询","添加公告","删除公告"},
 		{"文档查询","上传文档"}
 	};
+	private String webPasth[][] = {
+		{"searchUser.jsp","addUser.jsp","deleteUser.jsp"},
+		{"searchDept.jsp","addDept.jsp","deleteDept.jsp"},
+		{"searchPost.jsp","addPost.jsp","deletePost.jsp"},
+		{"searchWorker.jsp","addWorker.jsp","deleteWorker.jsp"},
+		{"searchNotice.jsp","addNotice.jsp","deleteNotice.jsp"},
+		{"test.jsp","test.jsp"}	
+	};
+	
 	private List<MenuInfo> list_first;
 	
 	public void initMenu() {
@@ -40,7 +49,7 @@ public class MenuService {
 			MenuInfo menu = new MenuInfo();
 			menu.setId(i);
 			menu.setText(secondMenu[position][i]);
-			menu.setPath("test.jsp");
+			menu.setPath(webPasth[position][i]);
 			list.add(menu);
 		}
 		return list;
@@ -56,7 +65,7 @@ public class MenuService {
 			for (int j = 0; j < smjson.size(); j++) {
 				JSONObject sm = smjson.getJSONObject(j);
 				sm.put("state", "open");
-				sm.put("iconCls","icon-flower");
+				sm.put("iconCls","icon-tip");
 				JSONObject attr = new JSONObject();
 				attr.put("path", sm.getString("path"));
 				sm.put("attributes", attr);

@@ -4,9 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登录界面</title>
 <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="themes/icon.css">
+<link type="text/css" href="css/main.css" rel="stylesheet">
+<link type="text/css" href="css/0001245c2.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 <!-- 引入easyu的js文件 -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
@@ -26,26 +30,23 @@
 </head>
 <body style="background-color: #CCCCCC">
 
-	<form action="login" method="post">
-		<table class="a">
-			<tr>
-				<td height="40">用户名:</td>
-				<td height="40"><input class="easyui-textbox" name="name"
-					data-options="iconCls:'icon-man'" style="width: 200px" required="required"></td>
-			</tr>
-			<tr>
-				<td height="40">密&nbsp;&nbsp;&nbsp;&nbsp;码:</td>
-				<td height="40"><input class="easyui-passwordbox" name="pass"
-					prompt="Password" iconWidth="28" style="width: 200px"></td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center" height="40"><input type="submit"
-					value="登录"
-					style="width: 100px; height: 30px; background-color: #CCCCCC;border-radius: 20px" required="required"></td>
-			</tr>
-		</table>
-	</form>
+	<div id="e_background">
+		<div id="e_smallstars"></div>
+		<div id="e_moon"></div>
+		<div
+			style="text-align: center; margin: 50px 0; font: normal 14px/24px 'MicroSoft YaHei'; color: #ffffff">
+		
+			<div class="container">
 
+			<form class="form" action="login" method="post">
+				<input type="text" placeholder="用户名" name="name">
+				<input type="password" placeholder="密码" name="pass">
+				<button type="submit" id="login-button">登录</button>
+			</form>
+		</div>
 
+		</div>
+	</div>
+		
 </body>
 </html>
