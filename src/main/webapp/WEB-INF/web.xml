@@ -23,4 +23,58 @@
     <url-pattern>/menu</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>searchUser</servlet-name>
+    <servlet-class>com.coder.Controller.SearchUserServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>searchUser</servlet-name>
+    <url-pattern>/searchUser</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>addUser</servlet-name>
+    <servlet-class>com.coder.Controller.AddUserServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>addUser</servlet-name>
+    <url-pattern>/addUser</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>deleteUser</servlet-name>
+    <servlet-class>com.coder.Controller.DeleteUserServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>deleteUser</servlet-name>
+    <url-pattern>/deleteUser</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>addDept</servlet-name>
+    <servlet-class>com.coder.Controller.AddDeptServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>addDept</servlet-name>
+    <url-pattern>/addDept</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>searchDept</servlet-name>
+    <servlet-class>com.coder.Controller.SearchDeptServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>searchDept</servlet-name>
+    <url-pattern>/searchDept</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>deleteDept</servlet-name>
+    <servlet-class>com.coder.Controller.DeleteDeptServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>deleteDept</servlet-name>
+    <url-pattern>/deleteDept</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

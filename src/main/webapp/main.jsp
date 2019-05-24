@@ -26,8 +26,8 @@
 	<div data-options="region:'north',collapsible:false"
 		style="height: 60px; background-color: #2A3542">
 		<div align="right">
-			<h5 id="time" style="color: #ffffff;float:left"></h5>
-			<a href="#" style="color: #ffffff;margin:0 auto">1564</a>
+			<h5 id="time" style="color: #ffffff; float: left"></h5>
+			<a href="#" style="color: #ffffff; margin: auto 0">1564</a>
 		</div>
 	</div>
 	<div data-options="region:'west',title:'导航栏',split:true"
@@ -71,8 +71,7 @@
 										if (flag) {
 											$('#tabs')
 													.tabs('select', node.text);
-										} else {
-											console.log(node)
+										} else {		
 											//添加新的tab
 											$('#tabs')
 													.tabs(

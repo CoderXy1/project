@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.coder.model.DeptInfo;
 import com.coder.model.UserInfo;
 
 public class Dao {
@@ -53,22 +54,54 @@ public class Dao {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * @exception 获得所有用户的list集合
+	 * @exception 通过用户名和权限查找用户的list集合
 	 * @return list
 	 * 
 	 **/
-	public List<UserInfo> getAllUser() {
+	public List<UserInfo> getAllUser(String uName,String power) {
 		checkConnect();
 		List<UserInfo> list_user = new ArrayList<UserInfo>();
-		String sql = "select * from tb_user";
+		String sql = "";
+		if (uName == null && power == null) {
+			sql = "select * from tb_user";
+		}else if (uName == null) {
+			if (power.equals("全部")) {
+				sql = "select * from tb_user";
+			}else{
+				sql = "select * from tb_user where power = '" + power + "'";
+			}
+		}else{
+			if (uName.equals("")) {
+				if (power.equals("全部")) {
+					sql = "select * from tb_user";
+				}else{
+					sql = "select * from tb_user where power = '" + power + "'";
+				}
+			}else {
+				if (power.equals("全部")) {
+					sql = "select * from tb_user where uname like '%" + uName + "%'";
+				}else{
+					sql = "select * from tb_user where uname like '%" + uName + "%' and power = '" + power + "'";
+				}
+			}
+
+		}
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				conn.close();
+			while (rs.next()) {
+				UserInfo user = new UserInfo();
+				user.setUid(rs.getString("uid"));
+				user.setUname(rs.getString("uname"));
+				user.setPassword(rs.getString("password"));
+				user.setState(rs.getString("state"));
+				user.setTime(rs.getString("time"));
+				user.setPower(rs.getString("power"));
+				list_user.add(user);	
 			}
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,10 +124,9 @@ public class Dao {
 			stmt.setString(4, state);
 			stmt.setString(5, time);
 			stmt.setString(6, power);
-			if (stmt.execute()) {
-				conn.close();
-				return true;
-			}
+			stmt.executeUpdate();
+			conn.close();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,10 +145,8 @@ public class Dao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, uid);
 			stmt.setString(2, password);
-			if (stmt.execute()) {
-				conn.close();
-				return true;
-			}
+			stmt.executeUpdate();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -130,13 +160,13 @@ public class Dao {
 	 **/
 	public boolean deleteUserByAdmin(String uid) {
 		checkConnect();
-		String sql = "delete from tb_user where uid = " + uid;
+		String sql = "delete from tb_user where uid = ?";
 		try {
 			stmt = conn.prepareStatement(sql);
-			if (stmt.execute()) {
-				conn.close();
-				return true;
-			}
+			stmt.setString(1,uid);
+			stmt.executeUpdate();
+			conn.close();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -184,5 +214,99 @@ public class Dao {
 		}
 		return false;
 	}
+	
+	/**
+	 * @exception 获得部门id最大值
+	 * @return boolean
+	 * 
+	 **/
+	public int getMaxDeptId() {
+		checkConnect();
+		String sql = "select max(did) as maxNo from tb_dept";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()){
+				return rs.getInt("maxNo");
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * @exception 通过部门名查找部门的list集合
+	 * @return list
+	 * 
+	 **/
+	public List<DeptInfo> getAllDept(String deptName) {
+		checkConnect();
+		List<DeptInfo> list_dept = new ArrayList<DeptInfo>();
+		String sql = "";
+		if (deptName == null) {
+			sql = "select * from tb_dept";
+		}else{
+			sql = "select * from tb_dept where name like '%" + deptName + "%'";
+		}
+
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				DeptInfo dept = new DeptInfo();
+				dept.setDid(rs.getInt("did"));
+				dept.setName(rs.getString("name"));
+				dept.setInfo(rs.getString("info"));
+				list_dept.add(dept);	
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list_dept;
+	}
+	
+	/**
+	 * @exception 通过普通用户删除用户信息(需要密码)
+	 * @return boolean
+	 * 
+	 **/
+	public boolean deleteDept(String did) {
+		checkConnect();
+		String sql = "delete from tb_dept where did = " + did;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * @exception 添加部门信息
+	 * @return boolean
+	 * 
+	 **/
+	public boolean addDept(String name, String info) {
+		int did = getMaxDeptId() + 1;
+		checkConnect();
+		String sql = "insert into tb_dept (did,name,info) values (?,?,?)";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,did);
+			stmt.setString(2, name);
+			stmt.setString(3, info);
+			stmt.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 
 }
