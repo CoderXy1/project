@@ -1,13 +1,13 @@
 package com.coder.model;
 
 public class PostInfo {
-	private String pid;
+	private int pid;
 	private String name;
 	private String info;
-	public String getPid() {
+	public int getPid() {
 		return pid;
 	}
-	public void setPid(String pid) {
+	public void setPid(int pid) {
 		this.pid = pid;
 	}
 	public String getName() {
@@ -22,7 +22,12 @@ public class PostInfo {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	public PostInfo(String pid, String name, String info) {
+	
+	public PostInfo() {
+		
+	}
+	
+	public PostInfo(int pid, String name, String info) {
 		super();
 		this.pid = pid;
 		this.name = name;

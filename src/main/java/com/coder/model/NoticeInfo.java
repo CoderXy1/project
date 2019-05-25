@@ -1,15 +1,15 @@
 package com.coder.model;
 
 public class NoticeInfo {
-	private String nid;
+	private int nid;
 	private String name;
 	private String content;
 	private String time;
 	private String uid;
-	public String getNid() {
+	public int getNid() {
 		return nid;
 	}
-	public void setNid(String nid) {
+	public void setNid(int nid) {
 		this.nid = nid;
 	}
 	public String getName() {
@@ -36,7 +36,12 @@ public class NoticeInfo {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-	public NoticeInfo(String nid, String name, String content, String time, String uid) {
+	
+	public NoticeInfo() {
+		
+	}
+	
+	public NoticeInfo(int nid, String name, String content, String time, String uid) {
 		super();
 		this.nid = nid;
 		this.name = name;

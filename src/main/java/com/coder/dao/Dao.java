@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coder.model.DeptInfo;
+import com.coder.model.NoticeInfo;
+import com.coder.model.PostInfo;
 import com.coder.model.UserInfo;
 
 public class Dao {
@@ -268,7 +270,7 @@ public class Dao {
 	}
 	
 	/**
-	 * @exception 通过普通用户删除用户信息(需要密码)
+	 * @exception 删除部门
 	 * @return boolean
 	 * 
 	 **/
@@ -301,6 +303,198 @@ public class Dao {
 			stmt.setString(3, info);
 			stmt.executeUpdate();
 			conn.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * @exception 获得公告id最大值
+	 * @return boolean
+	 * 
+	 **/
+	public int getMaxNoticeId() {
+		checkConnect();
+		String sql = "select max(nid) as maxNo from tb_notice";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()){
+				return rs.getInt("maxNo");
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
+	/**
+	 * @exception 添加公告信息
+	 * @return boolean
+	 * 
+	 **/
+	public boolean addNotice(String name, String content,String time,String uid) {
+		int nid = getMaxNoticeId() + 1;
+		checkConnect();
+		String sql = "insert into tb_notice (nid,name,content,time,uid) values (?,?,?,?,?)";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,nid);
+			stmt.setString(2, name);
+			stmt.setString(3, content);
+			stmt.setString(4, time);
+			stmt.setString(5, uid);
+			stmt.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * @exception 获得所有的公告list
+	 * @return list
+	 * 
+	 **/
+	public List<NoticeInfo> getAllNotice(String name,String content) {
+		checkConnect();
+		List<NoticeInfo> list_user = new ArrayList<NoticeInfo>();
+		String sql = "";
+		if (name == null && content == null) {
+			sql = "select * from tb_notice";
+		}else if (name == null) {
+			sql = "select * from tb_notice where content like '%" + content + "%'";
+		}else{
+			sql = "select * from tb_notice where content like '%" + name + "%' and content like '%" + content + "%'";
+		}
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				NoticeInfo notice = new NoticeInfo();
+				notice.setNid(rs.getInt("nid"));
+				notice.setName(rs.getString("name"));
+				notice.setContent(rs.getString("content"));
+				notice.setTime(rs.getString("time"));
+				notice.setUid(rs.getString("uid"));
+				list_user.add(notice);	
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list_user;
+	}
+	
+	/**
+	 * @exception 删除公告
+	 * @return boolean
+	 * 
+	 **/
+	public boolean deleteNotice(String nid) {
+		checkConnect();
+		String sql = "delete from tb_notice where nid = " + nid;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * @exception 获得职位id最大值
+	 * @return boolean
+	 * 
+	 **/
+	public int getMaxPostId() {
+		checkConnect();
+		String sql = "select max(pid) as maxNo from tb_post";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()){
+				return rs.getInt("maxNo");
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * @exception 通过职位名查找职位的list集合
+	 * @return list
+	 * 
+	 **/
+	public List<PostInfo> getAllPostt(String postName) {
+		checkConnect();
+		List<PostInfo> list_post = new ArrayList<PostInfo>();
+		String sql = "";
+		if (postName == null) {
+			sql = "select * from tb_post";
+		}else{
+			sql = "select * from tb_post where name like '%" + postName + "%'";
+		}
+
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				PostInfo post = new PostInfo();
+				post.setPid(rs.getInt("pid"));
+				post.setName(rs.getString("name"));
+				post.setInfo(rs.getString("info"));
+				list_post.add(post);	
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list_post;
+	}
+	
+	/**
+	 * @exception 添加部门信息
+	 * @return boolean
+	 * 
+	 **/
+	public boolean addPost(String name, String info) {
+		int pid = getMaxPostId() + 1;
+		checkConnect();
+		String sql = "insert into tb_post (pid,name,info) values (?,?,?)";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,pid);
+			stmt.setString(2, name);
+			stmt.setString(3, info);
+			stmt.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * @exception 删除职位
+	 * @return boolean
+	 * 
+	 **/
+	public boolean deletePost(String pid) {
+		checkConnect();
+		String sql = "delete from tb_post where pid = " + pid;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

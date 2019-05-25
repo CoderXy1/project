@@ -77,4 +77,58 @@
     <url-pattern>/deleteDept</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>searchNotice</servlet-name>
+    <servlet-class>com.coder.Controller.SearchNoticeServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>searchNotice</servlet-name>
+    <url-pattern>/searchNotice</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>addNotice</servlet-name>
+    <servlet-class>com.coder.Controller.AddNoticeServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>addNotice</servlet-name>
+    <url-pattern>/addNotice</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>deleteNotice</servlet-name>
+    <servlet-class>com.coder.Controller.DeleteNoticeServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>deleteNotice</servlet-name>
+    <url-pattern>/deleteNotice</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>searchPost</servlet-name>
+    <servlet-class>com.coder.Controller.SearchPostServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>searchPost</servlet-name>
+    <url-pattern>/searchPost</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>addPost</servlet-name>
+    <servlet-class>com.coder.Controller.AddPostServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>addPost</servlet-name>
+    <url-pattern>/addPost</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>deletePost</servlet-name>
+    <servlet-class>com.coder.Controller.DeletePostServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>deletePost</servlet-name>
+    <url-pattern>/deletePost</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

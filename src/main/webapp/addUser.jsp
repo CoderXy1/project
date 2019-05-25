@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 
-<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="themes/icon.css">
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
