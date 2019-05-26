@@ -39,7 +39,7 @@
 				</tr>
 			</thead>
 		</table>
-	
+	</div>
 	<script type="text/javascript">
 	
 	function post(){	

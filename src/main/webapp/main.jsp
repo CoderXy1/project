@@ -8,6 +8,7 @@
 <title>Main</title>
 <link rel="stylesheet" type="text/css" href="themes/gray/easyui.css">
 <link rel="stylesheet" type="text/css" href="themes/icon.css">
+<link rel="stylesheet" type="text/css" href="css/nav.css">
 <!-- 引入easyu的js文件 -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
@@ -25,10 +26,22 @@
 
 	<div data-options="region:'north',collapsible:false"
 		style="height: 60px; background-color: #2A3542">
-		<div align="right">
-			<h5 id="time" style="color: #ffffff; float: left"></h5>
-			<a href="#" style="color: #ffffff; margin: auto 0">1564</a>
-		</div>
+		
+<!-- 顶部导航栏 -->
+	<div>
+		<img alt="第七组logo" src="img/logo.png" style="epadding:0;marging:0;float:left;">
+	</div>
+	<div>
+		<h3 align="center" style="padding:0;margin-left:450px;float:left;color: white">人力资源管理系统</h3>
+	</div>
+	<ul id="nav"> 
+		<li><a href="javascript:void(0);" onclick="js_method1()"><img alt="退出图片" src="img/systools.png" style="padding-right:5px;">退出登录</a></li> 
+		<li><a href="javascript:void(0);" onclick="js_method2()"><img alt="设置图片" src="img/pointer.png" style="padding-right:5px;">用户注册</a></li> 
+		<li><a href="javascript:void(0);" onclick="js_method3()"><img alt="设置图片" src="img/pointer.png" style="padding-right:5px;">修改密码</a></li> 
+		<li><a href="javascript:void(0);" onclick="js_method4()"><img alt="闹钟图片" src="img/StatBar_time.png" style="padding-right:5px;"><font id="time" style="color: #ffffff;"></font></a></li> 
+		<li><a href="javascript:void(0);" onclick="js_method5()"><img alt="用户图片" src="img/home.png" style="padding-right:5px;">欢迎登录:<%=session.getAttribute("uname") %></a></li> 
+	</ul> 
+
 	</div>
 	<div data-options="region:'west',title:'导航栏',split:true"
 		style="width: 220px; background-color: #2A3542; color: #ffffff">

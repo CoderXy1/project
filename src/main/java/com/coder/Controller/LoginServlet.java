@@ -27,11 +27,12 @@ public class LoginServlet extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
 		PrintWriter out = resp.getWriter();
 		HttpSession session = req.getSession();
-		String name = req.getParameter("name");
+		String uid = req.getParameter("name");
 		String pass = req.getParameter("pass");
-		if (dao.isRight(name, pass)) {
+		if (dao.isRight(uid, pass)) {
 			session.setAttribute("isLogin",true);
-			session.setAttribute("uid",name);
+			session.setAttribute("uid",uid);
+			session.setAttribute("uname", dao.getUserNameById(uid));
 			resp.sendRedirect("main.jsp");
 		}else {
 			out.print("<script>alert('账号或密码错误!');window.location.href='index.jsp'</script>");

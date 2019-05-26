@@ -58,6 +58,29 @@ public class Dao {
 	}
 	
 	/**
+	 * @exception 通过uid获得用户名
+	 * @return boolean
+	 * 
+	 **/
+	public String getUserNameById(String uid) {
+		checkConnect();
+		String name = "";
+		String sql = "select * from tb_user where uid = '" + uid + "'";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				name = rs.getString("uname");
+				conn.close();
+				return name;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return name;
+	}
+	
+	/**
 	 * @exception 通过用户名和权限查找用户的list集合
 	 * @return list
 	 * 

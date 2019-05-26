@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+#nav { 
+font:14px verdana, arial, sans-serif;
+}
+#nav, #nav li {
+list-style:none; 
+padding:0; 
+margin:0; 
+float:right;
+}
+
+#nav li a {
+display:block; 
+padding-top:19px ;
+padding-bottom:19px ;
+padding-left:10px ;
+padding-right:10px ;
+background:#2A3542;
+color:#fff; 
+text-decoration:none; 
+border-right:0;
+}
+
+#nav li a:hover {
+background:#146C9C; 
+color:#fff; 
+}
