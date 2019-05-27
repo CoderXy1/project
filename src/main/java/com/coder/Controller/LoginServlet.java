@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 		if (dao.isRight(uid, pass)) {
 			session.setAttribute("isLogin",true);
 			session.setAttribute("uid",uid);
+			session.setAttribute("power",dao.getUserPowerById(uid));
 			session.setAttribute("uname", dao.getUserNameById(uid));
 			resp.sendRedirect("main.jsp");
 		}else {

@@ -31,14 +31,14 @@ public class WorkerService {
 		return tree;
 	}
 	
-	/*public boolean deleteWorkerService(String did) {
+	public boolean deleteWorkerService(String wid) {
 		
-		JSONArray json = JSONArray.fromObject(did);	
+		JSONArray json = JSONArray.fromObject(wid);	
 		for (int i=0;i < json.size();i++) {
 			JSONObject tree = json.getJSONObject(i);
-			dao.deleteDept(tree.getString("did"));
+			dao.deleteWorker(tree.getString("wId"));
 		}
 		return true;
 		
-	}*/
+	}
 }

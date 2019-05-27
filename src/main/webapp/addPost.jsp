@@ -14,6 +14,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<%
+		String power = (String)session.getAttribute("power");
+		if (power.equals("普通用户")){
+			out.print("<script>alert('你没有该权限操作!');window.location.href='Error.jsp'</script>");
+		}
+	%>
+	
 	<div id="p" class="easyui-panel" title="当前位置：职位管理 > 添加职位"
 		style="width: full; height: full; padding: 10px; background: #fafafa;">
 		<form id="form">

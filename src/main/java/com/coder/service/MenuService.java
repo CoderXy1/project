@@ -26,7 +26,7 @@ public class MenuService {
 		{"searchPost.jsp","addPost.jsp"},
 		{"searchWorker.jsp","addWorker.jsp"},
 		{"searchNotice.jsp","addNotice.jsp"},
-		{"test.jsp","test.jsp"}	
+		{"searchDocument.jsp","addDocument.jsp"}	
 	};
 	
 	private List<MenuInfo> list_first;

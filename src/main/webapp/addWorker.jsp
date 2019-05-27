@@ -13,16 +13,24 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<%
+		String power = (String)session.getAttribute("power");
+		if (power.equals("普通用户")){
+			out.print("<script>alert('你没有该权限操作!');window.location.href='Error.jsp'</script>");
+		}
+	%>
+
 	<div id="p" class="easyui-panel" title="当前位置：员工管理 > 添加员工"
 		style="width: full; height: full; padding: 10px; background: #fafafa;">
 		<form id="form">
 			<table>
 				<tr>
 					<td>姓&nbsp;&nbsp;名<font color="red" size="4px">*</font>:</td>
-					<td><input name="wName" class="easyui-textbox"
+					<td><input name="wName" class="easyui-textbox" data-options="required:true"
 						style="width: 300px"></td>
 					<td>身份证<font color="red" size="4px">*</font>:</td>
-					<td><input name="idNumber" class="easyui-textbox"
+					<td><input name="idNumber" class="easyui-textbox" data-options="required:true,validType:'idcard'"
 						style="width: 300px"></td>
 				</tr>
 				<tr>
@@ -47,15 +55,15 @@
 				</tr>
 				<tr>
 					<td>学&nbsp;&nbsp;历<font color="red" size="4px">*</font>:</td>
-					<td><input name="education" class="easyui-textbox"
+					<td><input name="education" class="easyui-textbox" data-options="required:true"
 						style="width: 300px"></td>
 					<td>邮&nbsp;&nbsp;箱<font color="red" size="4px">*</font>:</td>
-					<td><input name="email" class="easyui-textbox"
+					<td><input name="email" class="easyui-textbox" data-options="required:true,validType:'email'"
 						style="width: 300px"></td>
 				</tr>
 				<tr>
 					<td>手&nbsp;&nbsp;机<font color="red" size="4px">*</font>:</td>
-					<td><input name="mobilePhone" class="easyui-textbox"
+					<td><input name="mobilePhone" class="easyui-textbox" data-options="required:true"
 						style="width: 300px"></td>
 					<td>电&nbsp;&nbsp;话:</td>
 					<td><input name="phone" class="easyui-textbox"
@@ -66,12 +74,12 @@
 					<td><input name="political" class="easyui-textbox"
 						style="width: 300px"></td>
 					<td>QQ号码<font color="red" size="4px">*</font>:</td>
-					<td><input name="qq" class="easyui-textbox"
+					<td><input name="qq" class="easyui-textbox" data-options="required:true"
 						style="width: 300px"></td>
 				</tr>
 				<tr>
 					<td>联系地址<font color="red" size="4px">*</font>:</td>
-					<td><input name="address" class="easyui-textbox"
+					<td><input name="address" class="easyui-textbox" data-options="required:true"
 						style="width: 300px"></td>
 					<td>邮政编码:</td>
 					<td><input name="postcode" class="easyui-textbox"
@@ -79,10 +87,10 @@
 				</tr>
 				<tr>
 					<td>出生日期<font color="red" size="4px">*</font>:</td>
-					<td><input name="birthday" class="easyui-textbox"
+					<td><input name="birthday" class= "easyui-datebox" required ="required:true"
 						style="width: 300px"></td>
 					<td>民&nbsp;&nbsp;族<font color="red" size="4px">*</font>:</td>
-					<td><input name="family" class="easyui-textbox"
+					<td><input name="family" class="easyui-textbox" data-options="required:true"
 						style="width: 300px"></td>
 				</tr>
 				<tr>

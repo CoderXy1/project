@@ -51,13 +51,11 @@
 							checkbox="true"></th>
 						<th data-options="field:'uid'" style="width: 15%;" fit="true"><h4
 								align="center">登录名</h4></th>
-						<th data-options="field:'uname'" style="width: 15%;"><h4
+						<th data-options="field:'uname'" style="width: 20%;"><h4
 								align="center">用户名</h4></th>
-						<th data-options="field:'password'" style="width: 15%;"><h4
-								align="center">密码</h4></th>
 						<th data-options="field:'state'" style="width: 20%;"><h4
 								align="center">状态</h4></th>
-						<th data-options="field:'time'" style="width: 20.3%;"><h4
+						<th data-options="field:'time'" style="width: 25.3%;"><h4
 								align="center">创建时间</h4></th>
 						<th data-options="field:'power'" style="width: 14%;"><h4
 								align="center">权限</h4></th>

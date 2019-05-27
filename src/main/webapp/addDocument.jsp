@@ -13,26 +13,23 @@
 <script type="text/javascript"></script>
 </head>
 <body>
-	
-	<%
-		String power = (String)session.getAttribute("power");
-		if (power.equals("普通用户")){
-			out.print("<script>alert('你没有该权限操作!');window.location.href='Error.jsp'</script>");
-		}
-	%>
-	
 	<div id="cc" class="easyui-layout" style="width: 100%; height: 630px">
-		<div data-options="region:'center',title:'当前位置：公告管理 > 添加公告'"
+		<div data-options="region:'center',title:'当前位置：下载中心 > 上传文档'"
 			style="padding: 10px; background: #FFFFFF;">
 			<form id="form">
 				<table bgcolor="#F5F5F5" border="0" bordercolor="#8B7E66"
 					cellpadding="0" cellspacing="10">
 					<tr>
-						<td>公告标题：<input type="text" name="title" size="30" id="title" />
+						<td>文档标题：<input class="easyui-textbox" type="text" name="documentTitle" size="30" id="title" />
 						</td>
 					</tr>
 					<tr>
-						<td>公告内容：<br /> <textarea name="content" cols="80" rows="10"></textarea>
+						<td>文档描述：<br /> <textarea name="documentContent" cols="80" rows="10"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input class="easyui-filebox" style="width:500px">
 						</td>
 					</tr>
 					<tr>

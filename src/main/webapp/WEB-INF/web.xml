@@ -149,4 +149,13 @@
     <url-pattern>/searchWorker</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>deleteWorker</servlet-name>
+    <servlet-class>com.coder.Controller.DeleteWorkerServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>deleteWorker</servlet-name>
+    <url-pattern>/deleteWorker</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

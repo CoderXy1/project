@@ -74,7 +74,6 @@
 						<th data-options="field:'political'" width="100" align="center">政治面貌</th>
 						<th data-options="field:'postcode'" width="100" align="center">邮政编码</th>
 						<th data-options="field:'family'" width="80" align="center">名族</th>
-						<th data-options="field:'major'" width="100" align="center">专业</th>
 						<th data-options="field:'remarks'" width="250" align="center">备注</th>
 						<th data-options="field:'dName'" width="100" align="center">部门</th>
 					</tr>
@@ -110,8 +109,8 @@
 					url : "deleteWorker", //servlet地址
 					data : {
 						"wid" : JSON.stringify(a),
-						"uname" : $('#uname').val(),
-						"power" : $('#power').val(),
+						"wName" : $('#wName').val(),
+						"dName" : $('#dName').val(),
 					}, //传的数据  form表单 里面的数据
 					success : function(result) { //传数据成功之后的操作   result是servlet传过来的数据  这个函数对result进行处理，让它显示在 输入框中
 						post();

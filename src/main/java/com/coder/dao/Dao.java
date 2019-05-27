@@ -57,6 +57,29 @@ public class Dao {
 		}
 		return false;
 	}
+	
+	/**
+	 * @exception 通过uid获得权限
+	 * @return boolean
+	 * 
+	 **/
+	public String getUserPowerById(String uid) {
+		checkConnect();
+		String power = "";
+		String sql = "select power from tb_user where uid = '" + uid + "'";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				power = rs.getString("power");
+				conn.close();
+				return power;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return power;
+	}
 
 	/**
 	 * @exception 通过uid获得用户名
