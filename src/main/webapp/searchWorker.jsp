@@ -109,7 +109,7 @@
 					type : "POST", //传数据的方式
 					url : "deleteWorker", //servlet地址
 					data : {
-						"uid" : JSON.stringify(a),
+						"wid" : JSON.stringify(a),
 						"uname" : $('#uname').val(),
 						"power" : $('#power').val(),
 					}, //传的数据  form表单 里面的数据
