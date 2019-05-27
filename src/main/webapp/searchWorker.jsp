@@ -98,7 +98,13 @@
 		}
 
 		function deleteSelect() {
-
+			
+			var power = "<%=session.getAttribute("power")%>";
+			if (power == "普通用户"){
+				alert("你没有权限操作");
+				return;
+			}
+			
 			var a = $('#dg').datagrid('getSelections');
 			if (a.length <= 0) {
 				alert("请至少选择一行");

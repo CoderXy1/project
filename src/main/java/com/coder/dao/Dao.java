@@ -732,5 +732,49 @@ public class Dao {
 		}
 		return false;
 	}
+	
+	/**
+	 * @exception 获得文件id最大值
+	 * @return boolean
+	 * 
+	 **/
+	public int getMaxFileId() {
+		checkConnect();
+		String sql = "select max(fid) as maxNo from tb_file";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("maxNo");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * @exception 上传文件信息
+	 * @return boolean
+	 * 
+	 **/
+	public boolean addFile(String title, String describe,String path) {
+		int fid = getMaxFileId() + 1;
+		checkConnect();
+		String sql = "insert into tb_post (fid,fileTitle,fileDescribe,filePath) values (?,?,?,?)";
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, fid);
+			stmt.setString(2, title);
+			stmt.setString(3, describe);
+			stmt.setString(3, path);
+			stmt.executeUpdate();
+			conn.close();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }
