@@ -131,4 +131,22 @@
     <url-pattern>/deletePost</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>addWorker</servlet-name>
+    <servlet-class>com.coder.Controller.AddWorkerServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>addWorker</servlet-name>
+    <url-pattern>/addWorker</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>searchWorker</servlet-name>
+    <servlet-class>com.coder.Controller.SearchWorkerServlet</servlet-class>
+  </servlet>  
+<servlet-mapping>
+    <servlet-name>searchWorker</servlet-name>
+    <url-pattern>/searchWorker</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

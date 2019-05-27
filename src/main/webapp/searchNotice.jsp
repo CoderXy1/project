@@ -33,10 +33,10 @@
 			<table>
 				<tr>
 					<td>公告名称</td>
-					<td><input id="title" class="easyui-validatebox"
+					<td><input id="title" class="easyui-textbox" style="width: 300px"
 						data-options="required:false" /></td>
 					<td>公告内容</td>
-					<td><input id="content" class="easyui-validatebox"
+					<td><input id="content" class="easyui-textbox" style="width: 300px"
 						data-options="required:false" /></td>
 					<td><a id="btn_search" class="easyui-linkbutton"
 						data-options="iconCls:'icon-search',text:'搜索'" onclick="post()"></a></td>

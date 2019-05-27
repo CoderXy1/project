@@ -15,6 +15,7 @@ import com.coder.model.DeptInfo;
 import com.coder.model.NoticeInfo;
 import com.coder.model.PostInfo;
 import com.coder.model.UserInfo;
+import com.coder.model.WorkersInfo;
 
 public class Dao {
 
@@ -56,7 +57,7 @@ public class Dao {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @exception 通过uid获得用户名
 	 * @return boolean
@@ -79,35 +80,35 @@ public class Dao {
 		}
 		return name;
 	}
-	
+
 	/**
 	 * @exception 通过用户名和权限查找用户的list集合
 	 * @return list
 	 * 
 	 **/
-	public List<UserInfo> getAllUser(String uName,String power) {
+	public List<UserInfo> getAllUser(String uName, String power) {
 		checkConnect();
 		List<UserInfo> list_user = new ArrayList<UserInfo>();
 		String sql = "";
 		if (uName == null && power == null) {
 			sql = "select * from tb_user";
-		}else if (uName == null) {
+		} else if (uName == null) {
 			if (power.equals("全部")) {
 				sql = "select * from tb_user";
-			}else{
+			} else {
 				sql = "select * from tb_user where power = '" + power + "'";
 			}
-		}else{
+		} else {
 			if (uName.equals("")) {
 				if (power.equals("全部")) {
 					sql = "select * from tb_user";
-				}else{
+				} else {
 					sql = "select * from tb_user where power = '" + power + "'";
 				}
-			}else {
+			} else {
 				if (power.equals("全部")) {
 					sql = "select * from tb_user where uname like '%" + uName + "%'";
-				}else{
+				} else {
 					sql = "select * from tb_user where uname like '%" + uName + "%' and power = '" + power + "'";
 				}
 			}
@@ -124,7 +125,7 @@ public class Dao {
 				user.setState(rs.getString("state"));
 				user.setTime(rs.getString("time"));
 				user.setPower(rs.getString("power"));
-				list_user.add(user);	
+				list_user.add(user);
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -188,7 +189,7 @@ public class Dao {
 		String sql = "delete from tb_user where uid = ?";
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1,uid);
+			stmt.setString(1, uid);
 			stmt.executeUpdate();
 			conn.close();
 			return true;
@@ -197,39 +198,143 @@ public class Dao {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * @exception 获得员工id最大值
+	 * @return boolean
+	 * 
+	 **/
+	public int getMaxWorkerId() {
+		checkConnect();
+		String sql = "select max(wId) as maxNo from tb_workers";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("maxNo");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * @exception 获得所有员工信息
+	 * @return list
+	 * 
+	 **/
+	public List<WorkersInfo> getAllWorker(String wName, String dName) {
+		int did1 = 0;
+		if (dName != null) {
+			if (!dName.equals("全部")) {
+				did1 = getDeptIdByName(dName);
+				System.out.println(did1);
+			}
+		}	
+		
+		checkConnect();
+		List<WorkersInfo> list_workers = new ArrayList<WorkersInfo>();
+		String sql = "";
+		if (wName == null && dName == null) {
+			sql = "select * from tb_workers";
+		}else if (wName == null) {
+			sql = "select * from tb_workers where did = " + did1;
+		} else{
+			if (dName.equals("全部")) {
+				sql = "select * from tb_workers where wName like '%" + wName + "%'";
+			} else {
+				sql = "select * from tb_workers where did = " + did1 + " and wName like '%" + wName + "%'";
+			}
+		}
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int did = rs.getInt("did");
+				int pid = rs.getInt("pid");
+				WorkersInfo worker = new WorkersInfo();
+				worker.setwId(rs.getInt("wId"));
+				worker.setwName(rs.getString("wName"));
+				worker.setAddress(rs.getString("address"));
+				worker.setBirthday(rs.getString("birthday"));
+				worker.setCreatTime(rs.getString("creatTime"));
+				worker.setDid(did);
+				worker.setEducation(rs.getString("education"));
+				worker.setEmail(rs.getString("email"));
+				worker.setFamily(rs.getString("family"));
+				worker.setIdNumber(rs.getString("idNumber"));
+				worker.setInterests(rs.getString("interests"));
+				worker.setMajor(rs.getString("major"));
+				worker.setPhone(rs.getString("phone"));
+				worker.setPid(pid);
+				worker.setPolitical(rs.getString("political"));
+				worker.setPostcode(rs.getString("postCode"));
+				worker.setQq(rs.getString("qq"));
+				worker.setRemarks(rs.getString("remarks"));
+				worker.setSex(rs.getString("sex"));
+				worker.setdName(getDeptNameById(did));
+				worker.setPName(getPostNameById(pid));
+				list_workers.add(worker);
+			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list_workers;
+	}
+	
+	/**
+	 * @exception 删除职位
+	 * @return boolean
+	 * 
+	 **/
+	public boolean deleteWorker(String wId) {
+		checkConnect();
+		String sql = "delete from tb_workers where wId = " + wId;
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	/**
 	 * @exception 添加员工信息
 	 * @return boolean
 	 * 
 	 **/
-	public boolean addWorker(String wId, String wName, String sex, String phone, String email, String pid,
+	public boolean addWorker(String wName, String sex, String phone, String email, int pid,
 			String education, String idNumber, String address, String creatTime, String birthday, String interests,
-			String qq, String political, String postcode, String family, String major, String remarks, String did) {
+			String qq, String political, String postcode, String family, String major, String remarks, int did) {
+		int wId = getMaxWorkerId() + 1;
 		checkConnect();
-		String sql = "insert into tb_user (wId,wName,sex,phone,email,pid,education,idNumber, "
-				+ "address,creatTime,birthday,interests,qq,political,postcode,family,major,remarks,did) values (?,?,?,?,?,?)";
+		String sql = "insert into tb_workers (wId,wName,sex,phone,email,pid,education,idNumber, "
+				+ "address,creatTime,birthday,interests,qq,political,postcode,family,major,remarks,did) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1,wId);
-			stmt.setString(2,wName);
-			stmt.setString(3,sex);
-			stmt.setString(4,phone);
-			stmt.setString(5,email);
-			stmt.setString(6,pid);
-			stmt.setString(7,education);
-			stmt.setString(8,idNumber);
-			stmt.setString(9,address);
-			stmt.setString(10,creatTime);
-			stmt.setString(11,birthday);
-			stmt.setString(12,interests);
-			stmt.setString(13,qq);
-			stmt.setString(14,political);
-			stmt.setString(15,postcode);
-			stmt.setString(16,family);
-			stmt.setString(17,major);
-			stmt.setString(18,remarks);
-			stmt.setString(19,did);
+			stmt.setInt(1, wId);
+			stmt.setString(2, wName);
+			stmt.setString(3, sex);
+			stmt.setString(4, phone);
+			stmt.setString(5, email);
+			stmt.setInt(6, pid);
+			stmt.setString(7, education);
+			stmt.setString(8, idNumber);
+			stmt.setString(9, address);
+			stmt.setString(10, creatTime);
+			stmt.setString(11, birthday);
+			stmt.setString(12, interests);
+			stmt.setString(13, qq);
+			stmt.setString(14, political);
+			stmt.setString(15, postcode);
+			stmt.setString(16, family);
+			stmt.setString(17, major);
+			stmt.setString(18, remarks);
+			stmt.setInt(19, did);
 			if (stmt.execute()) {
 				conn.close();
 				return true;
@@ -239,6 +344,7 @@ public class Dao {
 		}
 		return false;
 	}
+	
 	
 	/**
 	 * @exception 获得部门id最大值
@@ -251,15 +357,55 @@ public class Dao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()){
+			if (rs.next()) {
 				return rs.getInt("maxNo");
-			}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	
+	/**
+	 * @exception 获得部门id
+	 * @return int
+	 * 
+	 **/
+	public int getDeptIdByName(String name) {
+		checkConnect();
+		String sql = "select did from tb_dept where name = '" + name + "'";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("did");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * @exception 获得部门名
+	 * @return String
+	 * 
+	 **/
+	public String getDeptNameById(int did) {
+		checkConnect();
+		String sql = "select name from tb_dept where did = '" + did + "'";
+		try {
+			PreparedStatement stmt1 = conn.prepareStatement(sql);
+			ResultSet rs = stmt1.executeQuery();
+			if (rs.next()) {
+				return rs.getString("name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 	/**
 	 * @exception 通过部门名查找部门的list集合
 	 * @return list
@@ -271,7 +417,7 @@ public class Dao {
 		String sql = "";
 		if (deptName == null) {
 			sql = "select * from tb_dept";
-		}else{
+		} else {
 			sql = "select * from tb_dept where name like '%" + deptName + "%'";
 		}
 
@@ -283,7 +429,7 @@ public class Dao {
 				dept.setDid(rs.getInt("did"));
 				dept.setName(rs.getString("name"));
 				dept.setInfo(rs.getString("info"));
-				list_dept.add(dept);	
+				list_dept.add(dept);
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -291,7 +437,7 @@ public class Dao {
 		}
 		return list_dept;
 	}
-	
+
 	/**
 	 * @exception 删除部门
 	 * @return boolean
@@ -309,7 +455,7 @@ public class Dao {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @exception 添加部门信息
 	 * @return boolean
@@ -321,7 +467,7 @@ public class Dao {
 		String sql = "insert into tb_dept (did,name,info) values (?,?,?)";
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1,did);
+			stmt.setInt(1, did);
 			stmt.setString(2, name);
 			stmt.setString(3, info);
 			stmt.executeUpdate();
@@ -332,7 +478,7 @@ public class Dao {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @exception 获得公告id最大值
 	 * @return boolean
@@ -344,28 +490,27 @@ public class Dao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()){
+			if (rs.next()) {
 				return rs.getInt("maxNo");
-			}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
-	
+
 	/**
 	 * @exception 添加公告信息
 	 * @return boolean
 	 * 
 	 **/
-	public boolean addNotice(String name, String content,String time,String uid) {
+	public boolean addNotice(String name, String content, String time, String uid) {
 		int nid = getMaxNoticeId() + 1;
 		checkConnect();
 		String sql = "insert into tb_notice (nid,name,content,time,uid) values (?,?,?,?,?)";
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1,nid);
+			stmt.setInt(1, nid);
 			stmt.setString(2, name);
 			stmt.setString(3, content);
 			stmt.setString(4, time);
@@ -378,21 +523,21 @@ public class Dao {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @exception 获得所有的公告list
 	 * @return list
 	 * 
 	 **/
-	public List<NoticeInfo> getAllNotice(String name,String content) {
+	public List<NoticeInfo> getAllNotice(String name, String content) {
 		checkConnect();
 		List<NoticeInfo> list_user = new ArrayList<NoticeInfo>();
 		String sql = "";
 		if (name == null && content == null) {
 			sql = "select * from tb_notice";
-		}else if (name == null) {
+		} else if (name == null) {
 			sql = "select * from tb_notice where content like '%" + content + "%'";
-		}else{
+		} else {
 			sql = "select * from tb_notice where content like '%" + name + "%' and content like '%" + content + "%'";
 		}
 		try {
@@ -405,7 +550,7 @@ public class Dao {
 				notice.setContent(rs.getString("content"));
 				notice.setTime(rs.getString("time"));
 				notice.setUid(rs.getString("uid"));
-				list_user.add(notice);	
+				list_user.add(notice);
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -413,7 +558,7 @@ public class Dao {
 		}
 		return list_user;
 	}
-	
+
 	/**
 	 * @exception 删除公告
 	 * @return boolean
@@ -431,7 +576,7 @@ public class Dao {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @exception 获得职位id最大值
 	 * @return boolean
@@ -443,15 +588,55 @@ public class Dao {
 		try {
 			stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()){
+			if (rs.next()) {
 				return rs.getInt("maxNo");
-			}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	
+	/**
+	 * @exception 通过职位编号获得职位名称
+	 * @return String
+	 * 
+	 **/
+	public String getPostNameById(int pid) {
+		checkConnect();
+		String sql = "select name from tb_post where pid = '" + pid + "'";
+		try {
+			PreparedStatement stmt1 = conn.prepareStatement(sql);
+			ResultSet rs = stmt1.executeQuery();
+			if (rs.next()) {
+				return rs.getString("name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	/**
+	 * @exception 通过职位名获得职位编号
+	 * @return boolean
+	 * 
+	 **/
+	public int getPostIdByName(String name) {
+		checkConnect();
+		String sql = "select pid from tb_post where name = '" + name + "'";
+		try {
+			stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("pid");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 	/**
 	 * @exception 通过职位名查找职位的list集合
 	 * @return list
@@ -463,7 +648,7 @@ public class Dao {
 		String sql = "";
 		if (postName == null) {
 			sql = "select * from tb_post";
-		}else{
+		} else {
 			sql = "select * from tb_post where name like '%" + postName + "%'";
 		}
 
@@ -475,7 +660,7 @@ public class Dao {
 				post.setPid(rs.getInt("pid"));
 				post.setName(rs.getString("name"));
 				post.setInfo(rs.getString("info"));
-				list_post.add(post);	
+				list_post.add(post);
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -483,7 +668,7 @@ public class Dao {
 		}
 		return list_post;
 	}
-	
+
 	/**
 	 * @exception 添加部门信息
 	 * @return boolean
@@ -495,7 +680,7 @@ public class Dao {
 		String sql = "insert into tb_post (pid,name,info) values (?,?,?)";
 		try {
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1,pid);
+			stmt.setInt(1, pid);
 			stmt.setString(2, name);
 			stmt.setString(3, info);
 			stmt.executeUpdate();
@@ -506,7 +691,7 @@ public class Dao {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @exception 删除职位
 	 * @return boolean
@@ -524,6 +709,5 @@ public class Dao {
 		}
 		return false;
 	}
-	
 
 }

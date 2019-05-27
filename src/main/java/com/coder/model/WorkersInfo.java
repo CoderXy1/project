@@ -2,12 +2,12 @@ package com.coder.model;
 
 public class WorkersInfo {
 	
-	private String wId;
+	private int wId;
 	private String wName;
 	private String sex;
 	private String phone;
 	private String email;
-	private String pid;
+	private int pid;
 	private String education;
 	private String idNumber;
 	private String address;
@@ -20,15 +20,17 @@ public class WorkersInfo {
 	private String family;
 	private String major;
 	private String remarks;
-	private String did;
+	private int did;
+	private String dName;
+	private String pName;
 		
 	public WorkersInfo() {
 		
 	}
 	
-	public WorkersInfo(String wId, String wName, String sex, String phone, String email, String pid, String education,
+	public WorkersInfo(int wId, String wName, String sex, String phone, String email, int pid, String education,
 			String idNumber, String address, String creatTime, String birthday, String interests, String qq,
-			String political, String postcode, String family, String major, String remarks, String did) {
+			String political, String postcode, String family, String major, String remarks, int did) {
 		super();
 		this.wId = wId;
 		this.wName = wName;
@@ -50,11 +52,27 @@ public class WorkersInfo {
 		this.remarks = remarks;
 		this.did = did;
 	}
-	
-	public String getwId() {
+
+	public String getdName() {
+		return dName;
+	}
+
+	public void setdName(String dName) {
+		this.dName = dName;
+	}
+
+	public String getPName() {
+		return pName;
+	}
+
+	public void setPName(String pName) {
+		this.pName = pName;
+	}
+
+	public int getwId() {
 		return wId;
 	}
-	public void setwId(String wId) {
+	public void setwId(int wId) {
 		this.wId = wId;
 	}
 	public String getwName() {
@@ -81,10 +99,10 @@ public class WorkersInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPid() {
+	public int getPid() {
 		return pid;
 	}
-	public void setPid(String pid) {
+	public void setPid(int pid) {
 		this.pid = pid;
 	}
 	public String getEducation() {
@@ -159,10 +177,10 @@ public class WorkersInfo {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public String getDid() {
+	public int getDid() {
 		return did;
 	}
-	public void setDid(String did) {
+	public void setDid(int did) {
 		this.did = did;
 	}
 	

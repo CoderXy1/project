@@ -23,7 +23,7 @@
 			<table>
 				<tr>
 					<td>用户名:</td>
-					<td><input id="uname" class="easyui-validatebox"
+					<td><input id="uname" class="easyui-textbox" style="width: 300px"
 						data-options="required:false" /></td>
 					<td>用户权限</td>
 					<td><select id="power" class="easyui-combobox"
