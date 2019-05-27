@@ -11,22 +11,20 @@ import net.sf.json.JSONObject;
 
 public class MenuService {
 	private int id = 0;
-	private String firstMenu[] = {"用户管理","部门管理","职位管理","员工管理","公告管理","下载中心"};
+	private String firstMenu[] = {"用户管理","部门管理","职位管理","员工管理","公告管理"};
 	private String secondMenu[][] = {
 		{"用户查询","添加用户"},
 		{"部门查询","添加部门"},
 		{"职位查询","添加职位"},
 		{"员工查询","添加员工"},
 		{"公告查询","添加公告"},
-		{"文档查询","上传文档"}
 	};
 	private String webPasth[][] = {
 		{"searchUser.jsp","addUser.jsp"},
 		{"searchDept.jsp","addDept.jsp"},
 		{"searchPost.jsp","addPost.jsp"},
 		{"searchWorker.jsp","addWorker.jsp"},
-		{"searchNotice.jsp","addNotice.jsp"},
-		{"searchDocument.jsp","addDocument.jsp"}	
+		{"searchNotice.jsp","addNotice.jsp"},	
 	};
 	
 	private List<MenuInfo> list_first;

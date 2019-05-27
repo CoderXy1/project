@@ -28,7 +28,7 @@
 				<table bgcolor="#F5F5F5" border="0" bordercolor="#8B7E66"
 					cellpadding="0" cellspacing="10">
 					<tr>
-						<td>公告标题：<input type="text" name="title" size="30" id="title" />
+						<td>公告标题：<input type="text" class="easyui-textbox" name="title" size="30" id="title" />
 						</td>
 					</tr>
 					<tr>
